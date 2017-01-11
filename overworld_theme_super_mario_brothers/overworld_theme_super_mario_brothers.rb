@@ -1,176 +1,260 @@
-QUARTER = 0.61
-SIXTEENTH = QUARTER / 4
-EIGHTH = QUARTER / 2
-HALF = QUARTER * 2
-WHOLE = QUARTER * 4
+def play_super_mario_brothers_overworld_theme
+  use_bpm 97
+  use_synth :pulse
+  
+  intro
+  vamp
+  2.times{ section_one }
+  2.times{ section_two }
+  section_three
+  2.times{ section_one }
+  2.times{ section_four }
+  section_three
+  section_four(true)
+  outro
+end
 
+
+#####################################
+# INTRO
+#####################################
+def intro_notes(part)
+  {
+    tenor: [[:E5, 0.25], [:E5, 0.5], [:E5, 0.5], [:C5, 0.25], [:E5, 0.5], [:G5, 2]],
+    baritone: [[:Fs4, 0.25], [:Fs4, 0.5], [:Fs4, 0.5], [:Fs4, 0.25], [:Fs4, 0.5], [:G4, 2]],
+    bass: [[:D3, 0.25],  [:D3, 0.5], [:D3, 0.5], [:D3, 0.25], [:D3, 0.5], [1], [:G3, 1]]
+  }[part]
+end
+
+def intro(add_percussion = false)
+  play_percussion(2) if add_percussion
+  play_thread(intro_notes(:tenor))
+  play_thread(intro_notes(:baritone))
+  play_thread(intro_notes(:bass))
+  sleep 4
+end
+
+
+#####################################
+# VAMP
+#####################################
+def vamp
+  play_percussion 4
+  sleep 8
+  2.times do
+    play_percussion 4
+    play_thread([[:G3, 0.75], [:E3, 0.75], [:C3, 1], [:F3, 0.25], [:G3, 0.5], [:Gb3, 0.25], [:F3, 0.5, 0.5]])
+    sleep 8
+  end
+end
+
+
+#####################################
+# SECTION ONE
+#####################################
+def section_one_notes(part)
+  {
+    tenor: [
+      [:C5, 0.75], [:G4, 0.75], [:E4, 1], [:A4, 0.25], [:B4, 0.5], [:Bb4, 0.25], [:A4, 0.5, 0.5], [:G4, 0.33], 
+      [:C5, 0.33], [:E5, 0.34], [:A5, 0.5], [:F5, 0.25], [:G5, 0.5], [:E5, 0.5], [:C5, 0.25], [:D5, 0.25], [:B4, 1]
+    ],
+    baritone: [
+      [:E4, 0.75], [:C4, 0.75], [:G3, 1], [:C4, 0.25], [:D4, 0.5], [:Db4, 0.25], [:C4, 0.5, 0.5], [:C4, 0.33], 
+      [:G4, 0.33], [:B4, 0.34], [:C5, 0.5], [:A4, 0.25], [:B4, 0.5], [:G4, 0.5], [:E4, 0.25], [:F4, 0.25], [:D4, 1]
+    ],
+    bass: [
+      [:G3, 0.75], [:E3, 0.75], [:C3, 1], [:F3, 0.25], [:G3, 0.5], [:Gb3, 0.25], [:F3, 0.5, 0.5], [:E3, 0.33], 
+      [:C3, 0.33], [:E3, 0.34], [:F3, 0.5], [:D3, 0.25], [:E3, 0.5], [:C3, 0.5], [:A3, 0.25], [:B3, 0.25], [:G3, 1]
+    ]
+  }[part]
+end
+
+def section_one
+  play_percussion 4
+  play_thread(section_one_notes(:tenor))
+  play_thread(section_one_notes(:baritone))
+  play_thread(section_one_notes(:bass))
+  sleep 8
+end
+
+
+#####################################
+# SECTION TWO
+#####################################
+def section_two_notes(part)
+  {
+    tenor: [
+      [0.5], [:G5, 0.25], [:Fs5, 0.25], [:F5, 0.25], [:Eb5, 0.5], [:E5, 0.5], [:Ab4, 0.25], [:A4, 0.25], [:C5, 0.5], 
+      [:A4, 0.25], [:C5, 0.25], [:D5, 0.75], [:G5, 0.25], [:Fs5, 0.25], [:F5, 0.25], [:Eb5, 0.5], [:E5, 0.5], 
+      [:C6, 0.5], [:C6, 0.25], [:C6, 1.5, 0.25], [:G5, 0.25], [:Fs5, 0.25], [:F5, 0.25], [:Eb5, 0.5], [:E5, 0.5], 
+      [:Ab4, 0.25], [:A4, 0.25], [:C5, 0.5], [:A4, 0.25], [:C5, 0.25], [:D5, 0.75], [:Eb5, 0.75], [:D5, 0.75], [:C5, 2]
+    ],
+    baritone: [
+      [0.5], [:E5, 0.25], [:Ds5, 0.25], [:D5, 0.25], [:B4, 0.5], [:C5, 0.5], [:E4, 0.25], [:F4, 0.25], [:G4, 0.5], 
+      [:C4, 0.25], [:E4, 0.25], [:F4, 0.75], [:E5, 0.25], [:Ds5, 0.25], [:D5, 0.25], [:B4, 0.5], [:C5, 0.5], 
+      [:G5, 0.5], [:G5, 0.25], [:G5, 1.5, 0.25], [:E5, 0.25], [:Ds5, 0.25], [:D5, 0.25], [:B4, 0.5], [:C5, 0.5], 
+      [:E4, 0.25], [:F4, 0.25], [:G4, 0.5], [:C4, 0.25], [:E4, 0.25], [:F4, 0.75], [:Ab4, 0.75], [:F4, 0.75], [:E4, 2]
+    ],
+    bass: [
+      [:C3, 0.75], [:G3, 0.75], [:C4, 0.5], [:F3, 0.75], [:C4, 0.25], [:C4, 0.5], [:F3, 0.5], [:C3, 0.75], [:E3, 0.75], 
+      [:G3, 0.25], [:C4, 0.25], [0.25], [:F5, 0.5], [:F5, 0.25], [:F5, 0.5, 0.25], [:G3, 0.5], [:C3, 0.75], [:G3, 0.75], 
+      [:C4, 0.5], [:F3, 0.75], [:C4, 0.25], [:C4, 0.5], [:F3, 0.5], [:C3, 0.5], [:Ab3, 0.75], [:Bb3, 0.75], [:C4, 0.75], 
+      [:G3, 0.25], [:G3, 0.5], [:C3, 0.5]
+    ]
+  }[part]
+end
+
+def section_two
+  play_percussion 8
+  play_thread(section_two_notes(:tenor))
+  play_thread(section_two_notes(:baritone))
+  play_thread(section_two_notes(:bass))
+  sleep 16
+end
+
+
+#####################################
+# SECTION THREE
+#####################################
+def section_three_notes(part)
+  {
+    tenor: [
+      [:C5, 0.25], [:C5, 0.5], [:C5, 0.5], [:C5, 0.25], [:D5, 0.5], [:E5, 0.25], [:C5, 0.5], [:A4, 0.25], 
+      [:G4, 1], [:C5,  0.25], [:C5, 0.5], [:C5, 0.5], [:C5, 0.25], [:D5, 0.25], [:E5, 0.5], [1.75],
+      [:C5, 0.25], [:C5, 0.5], [:C5, 0.5], [:C5, 0.25], [:D5, 0.5], [:E5, 0.25], [:C5, 0.5], [:A4, 0.25], [:G4, 1]
+    ],
+    baritone: [
+      [:Ab4, 0.25], [:Ab4, 0.5], [:Ab4, 0.5], [:Ab4, 0.25], [:Bb4, 0.5], [:G4, 0.25], [:E4, 0.5], [:E4, 0.25], 
+      [:C4, 1], [:Ab4, 0.25], [:Ab4, 0.5], [:Ab4, 0.5], [:Ab4, 0.25], [:Bb4, 0.25], [:G4, 0.5], [1.75],
+      [:Ab4, 0.25], [:Ab4, 0.5], [:Ab4, 0.5], [:Ab4, 0.25], [:Bb4, 0.5], [:G4, 0.25], [:E4, 0.5], [:E4, 0.25], [:C4, 1]
+    ],
+    bass: [
+      [:Ab2, 0.75], [:Eb3, 0.75], [:Ab3, 0.5], [:G3, 0.75], [:C3, 0.75], [:G2, 0.5], [:Ab2, 0.75], [:Eb3, 0.75], 
+      [:Ab3, 0.5], [:G3, 0.75], [:C3, 0.75], [:G2, 0.5], [:Ab2, 0.75], [:Eb3, 0.75], [:Ab3, 0.5], [:G3, 0.75], 
+      [:C3, 0.75], [:G2, 0.5]
+    ]
+  }[part]
+end
+
+def section_three
+  play_percussion 6
+  play_thread(section_three_notes(:tenor))
+  play_thread(section_three_notes(:baritone))
+  play_thread(section_three_notes(:bass))
+  sleep 12
+  intro(true)
+end
+
+
+#####################################
+# SECTION FOUR
+#####################################
+def section_four_notes(part)
+  {
+    tenor: [
+      [:E5, 0.25], [:C5, 0.5], [:G4, 0.75], [:Ab4, 0.5], [:A4, 0.25], [:F5, 0.5], [:F5, 0.25], [:A4, 1],
+      [:B4, 0.33], [:A5, 0.33], [:A5, 0.34], [:A5, 0.33], [:G5, 0.33], [:F5, 0.34], [:E5, 0.25], [:C5, 0.5],
+      [:A4, 0.25], [:G4, 1], [:E5, 0.25], [:C5, 0.5], [:G4, 0.75], [:Ab4, 0.5], [:A4, 0.25], [:F5, 0.5], 
+      [:F5, 0.25], [:A4, 1], [:B4, 0.25], [:F5, 0.5], [:F5, 0.25], [:F5, 0.33], [:E5, 0.33], [:D5, 0.34], [:C5, 2]
+    ],
+    baritone: [
+      [:C5, 0.25], [:A4, 0.5], [:E4, 0.75], [:E4, 0.5], [:F4, 0.25], [:C5, 0.5], [:C5, 0.25], [:F4, 1],
+      [:G4, 0.33], [:F5, 0.33], [:F5, 0.34], [:F5, 0.33], [:E5, 0.33], [:D5, 0.334], [:C5, 0.25], [:A4, 0.5], 
+      [:F4, 0.25], [:E4, 1], [:C5, 0.25], [:A4, 0.5], [:E4, 0.75], [:E4, 0.5], [:F4, 0.25], [:C5, 0.5], [:C5, 0.25], 
+      [:F4, 1], [:G4, 0.25], [:D5, 0.5], [:D5, 0.25], [:D5, 0.33], [:C5, 0.33], [:B4, 0.34], [:G4, 0.25], [:E4, 0.5], 
+      [:E4, 0.25], [:C4, 1]
+    ],
+    bass: [
+      [:C3, 0.75], [:Fs3, 0.25], [:G3, 0.5], [:C4, 0.5], [:F3, 0.5], [:F3, 0.5], [:C4, 0.25], [:C4, 0.25], [:F3, 0.5],
+      [:D3, 0.75], [:F3, 0.25], [:G3, 0.5], [:B3, 0.5], [:G3, 0.5], [:G3, 0.5], [:C4, 0.25], [:C4, 0.25], [:G3, 0.5],
+      [:C3, 0.75], [:Fs3, 0.25], [:G3, 0.5], [:C4, 0.5], [:F3, 0.5], [:F3, 0.5], [:C4, 0.25], [:C4, 0.25], [:F3, 0.5],
+      [:G3, 0.25], [:G3, 0.5], [:G3, 0.25], [:G3, 0.33], [:A3, 0.33], [:B3, 0.34], [:C4, 0.5],  [:G3, 0.5], [:C3, 1]
+    ]
+  }[part]
+end
+
+def section_four(last_time = false)
+  play_percussion(last_time ? 6 : 8)
+  play_thread(section_four_notes(:tenor))
+  play_thread(section_four_notes(:baritone))
+  play_thread(section_four_notes(:bass))
+  sleep 16
+end
+
+
+#####################################
+# OUTRO
+#####################################
+def outro_notes(part)
+  {
+    tenor: [
+      [:C5, 1, 1], [:G4, 1, 1], [:E4, 1, 1], [:A4, 0.54, 0.54], [:B4, 0.58, 0.58], [:A4, 0.62, 0.62], [:Gs4, 0.66, 0.66], 
+      [:Bb4, 0.7, 0.7], [:Gs4, 0.74, 0.74], [:G4, 3.5, 3.5]
+    ],
+    baritone: [
+      [:E4, 1, 1], [:C4, 1, 1], [:G3, 1, 1], [:C4, 1.74, 1.74], [:Es4, 2.1, 2.1], [:G4, 0.25, 0.25], [:F4, 0.25, 0.25],
+      [:G4, 3, 3]
+    ],
+    bass: [[:G3, 1, 1], [:E3, 1, 1], [:C3, 1, 1], [:F3, 1.74, 1.74], [:Cs3, 2.1, 2.1], [:E3, 3.5, 3.5]]
+  }[part]
+end
+
+def outro(last_time = false)
+  play_thread(outro_notes(:tenor))
+  play_thread(outro_notes(:baritone))
+  play_thread(outro_notes(:bass))
+end
+
+
+#####################################
+# PERCUSSION
+#####################################
+def percussion
+  [[1, 100], [100, 1]].each do |pitch1, pitch2|
+    play pitch1, release: 0.065, attack_level: 0.8, amp: 1
+    sleep 0.5
+    play pitch2, release: 0.0625, attack_level: 0.2, amp: 0.4
+    sleep 0.375
+    play pitch2, release: 0.0625, attack_level: 0.2, amp: 0.4
+    sleep 0.125
+  end
+end
+
+def play_percussion(n)
+  in_thread do
+    use_synth :pnoise
+    n.times do
+      percussion
+    end
+  end
+end
+
+
+#####################################
+# CONVINIENCE
+#####################################
 def play_thread(note_thread)
   in_thread do
-    use_synth :pulse
     note_thread.each do |note_attributes|
       if note_attributes.length == 1
         sleep note_attributes[0]
         next
       end
-
-      if note_attributes.length > 4
-        triplet([note_attributes[0], note_attributes[1], note_attributes[2]], note_attributes[3], note_attributes[4])
-        next
-      end
-
-      sustain = note_attributes.length == 2 ? SIXTEENTH : note_attributes[2]
+      
+      sustain = note_attributes.length == 2 ? 0.25 : note_attributes[2]
       play_note_for_duration(note_attributes[0], note_attributes[1], sustain)
     end
   end
 end
 
-def play_note_for_duration(pitch, duration, sustain = SIXTEENTH)
+def play_note_for_duration(pitch, duration, sustain = 0.25)
   play pitch, release: sustain, env_curve: 4
   sleep duration
 end
 
-def syncopate(duration)
-  duration + (duration / 2)
-end
 
-def triplet(notes, total_duartion, sustain)
-  notes.map{|note| play_note_for_duration(note, total_duartion / 3, sustain)}
-end
+#####################################
+# PLAY IT!
+#####################################
+play_super_mario_brothers_overworld_theme
 
-def intro
-  play_thread([[:E5, SIXTEENTH], [:E5, EIGHTH], [:E5, EIGHTH], [:C5, SIXTEENTH], [:E5, EIGHTH], [:G5, HALF]])
-  play_thread([[:Fs4, SIXTEENTH], [:Fs4, EIGHTH], [:Fs4, EIGHTH], [:Fs4, SIXTEENTH], [:Fs4, EIGHTH], [:G4, HALF]])
-  play_thread([[:D3, SIXTEENTH], [:D3, EIGHTH], [:D3, EIGHTH], [:D3, SIXTEENTH], [:D3, EIGHTH], [QUARTER], [:G3, QUARTER]])
-  sleep WHOLE
-end
-
-def section_one
-  play_thread([
-    [:C5, syncopate(EIGHTH)], [:G4, syncopate(EIGHTH)], [:E4, QUARTER], [:A4, SIXTEENTH], [:B4, EIGHTH], [:Bb4, SIXTEENTH], [:A4, EIGHTH, EIGHTH],
-    [:G4, :C5, :E5, QUARTER, SIXTEENTH], [:A5, EIGHTH], [:F5, SIXTEENTH], [:G5, EIGHTH], [:E5, EIGHTH], [:C5, SIXTEENTH], [:D5, SIXTEENTH], [:B4, QUARTER]
-  ])
-
-  play_thread([
-    [:E4, syncopate(EIGHTH)], [:C4, syncopate(EIGHTH)], [:G3, QUARTER], [:C4, SIXTEENTH], [:D4, EIGHTH], [:Db4, SIXTEENTH], [:C4, EIGHTH, EIGHTH],
-    [:C4, :G4, :B4, QUARTER, SIXTEENTH], [:C5, EIGHTH], [:A4, SIXTEENTH], [:B4, EIGHTH], [:G4, EIGHTH], [:E4, SIXTEENTH], [:F4, SIXTEENTH], [:D4, QUARTER]
-  ])
-
-  play_thread([
-    [:G3, syncopate(EIGHTH)], [:E3, syncopate(EIGHTH)], [:C3, QUARTER], [:F3, SIXTEENTH], [:G3, EIGHTH], [:Gb3, SIXTEENTH], [:F3, EIGHTH, EIGHTH],
-    [:E3, :C3, :E3, QUARTER, SIXTEENTH], [:F3, EIGHTH], [:D3, SIXTEENTH], [:E3, EIGHTH], [:C3, EIGHTH], [:A3, SIXTEENTH], [:B3, SIXTEENTH], [:G3, QUARTER]
-  ])
-
-  sleep WHOLE * 2
-end
-
-def section_two_common_beginning
-  play_thread([[EIGHTH], [:G5, SIXTEENTH], [:Fs5, SIXTEENTH], [:F5, SIXTEENTH], [:Eb5, EIGHTH], [:E5, EIGHTH], [:Ab4, SIXTEENTH], [:A4, SIXTEENTH],
-    [:C5, EIGHTH], [:A4, SIXTEENTH], [:C5, SIXTEENTH], [:D5, syncopate(EIGHTH)]
-  ])
-
-  play_thread([[EIGHTH], [:E5, SIXTEENTH], [:Ds5, SIXTEENTH], [:D5, SIXTEENTH], [:B4, EIGHTH], [:C5, EIGHTH], [:E4, SIXTEENTH], [:F4, SIXTEENTH],
-    [:G4, EIGHTH], [:C4, SIXTEENTH], [:E4, SIXTEENTH], [:F4, syncopate(EIGHTH)]
-  ])
-
-  play_thread([
-    [:C3, syncopate(EIGHTH)], [:G3, syncopate(EIGHTH)], [:C4, EIGHTH], [:F3, syncopate(EIGHTH)], [:C4, SIXTEENTH], [:C4, EIGHTH], [:F3, EIGHTH]
-  ])
-
-  sleep WHOLE
-end
-
-def section_two_part_one
-  section_two_common_beginning
-
-  play_thread([[
-    EIGHTH], [:G5, SIXTEENTH], [:Fs5, SIXTEENTH], [:F5, SIXTEENTH], [:Eb5, EIGHTH], [:E5, EIGHTH], [:C6, EIGHTH], [:C6, SIXTEENTH], [:C6, syncopate(QUARTER), SIXTEENTH]
-  ])
-
-  play_thread([
-    [EIGHTH], [:E5, SIXTEENTH], [:Ds5, SIXTEENTH], [:D5, SIXTEENTH], [:B4, EIGHTH], [:C5, EIGHTH], [:G5, EIGHTH], [:G5, SIXTEENTH], [:G5, syncopate(QUARTER), SIXTEENTH]
-  ])
-
-  play_thread([[:C3, syncopate(EIGHTH)], [:E3, syncopate(EIGHTH)], [:G3, SIXTEENTH], [:C4, SIXTEENTH], [SIXTEENTH], [:F5, EIGHTH], [:F5, SIXTEENTH], 
-    [:F5, EIGHTH, SIXTEENTH], [:G3, EIGHTH]
-  ])
-
-  sleep WHOLE
-end
-
-def section_two_part_two
-  section_two_common_beginning
-  play_thread([[EIGHTH], [:Eb5, syncopate(EIGHTH)], [:D5, syncopate(EIGHTH)], [:C5, HALF]])
-  play_thread([[EIGHTH], [:Ab4, syncopate(EIGHTH)], [:F4, syncopate(EIGHTH)], [:E4, HALF]])
-  play_thread([[:C3, EIGHTH], [:Ab3, syncopate(EIGHTH)], [:Bb3, syncopate(EIGHTH)], [:C4, syncopate(EIGHTH)], [:G3, SIXTEENTH], [:G3, EIGHTH], [:C3, EIGHTH]])
-  sleep WHOLE
-end
-
-def section_two
-  section_two_part_one
-  section_two_part_two
-end
-
-def section_three_common_beginning
-  play_thread([[:C5, SIXTEENTH], [:C5, EIGHTH], [:C5, EIGHTH], [:C5, SIXTEENTH], [:D5, EIGHTH]])
-  play_thread([[:Ab4, SIXTEENTH], [:Ab4, EIGHTH], [:Ab4, EIGHTH], [:Ab4, SIXTEENTH], [:Bb4, EIGHTH]])
-  play_thread([[:Ab2, syncopate(EIGHTH)], [:Eb3, syncopate(EIGHTH)], [:Ab3, EIGHTH]])
-  sleep HALF
-end
-
-def section_three_part_one
-  section_three_common_beginning
-  play_thread([[:E5, SIXTEENTH], [:C5, EIGHTH], [:A4, SIXTEENTH], [:G4, QUARTER]])
-  play_thread([[:G4, SIXTEENTH], [:E4, EIGHTH], [:E4, SIXTEENTH], [:C4, QUARTER]])
-  play_thread([[:G3, syncopate(EIGHTH)], [:C3, syncopate(EIGHTH)], [:G2, EIGHTH]])
-  sleep HALF
-end
-
-def section_three_part_two
-  section_three_common_beginning
-  play_thread([[:E5, HALF]])
-  play_thread([[:G4, HALF]])
-  play_thread([[:G3, syncopate(EIGHTH)], [:C3, syncopate(EIGHTH)], [:G2, EIGHTH]])
-  sleep HALF
-end
-
-def section_three
-  section_three_part_one
-  section_three_part_two
-  section_three_part_one
-  intro
-end
-
-def section_four_common_beginning
-  play_thread([[:E5, SIXTEENTH], [:C5, EIGHTH], [:G4, syncopate(EIGHTH)], [:Ab4, EIGHTH], [:A4, SIXTEENTH], [:F5, EIGHTH], [:F5, SIXTEENTH], [:A4, QUARTER]])
-  play_thread([[:C5, SIXTEENTH], [:A4, EIGHTH], [:E4, syncopate(EIGHTH)], [:E4, EIGHTH], [:F4, SIXTEENTH], [:C5, EIGHTH], [:C5, SIXTEENTH], [:F4, QUARTER]])
-  play_thread([[:C3, syncopate(EIGHTH)], [:Fs3, SIXTEENTH], [:G3, EIGHTH], [:C4, EIGHTH], [:F3, EIGHTH], [:F3, EIGHTH], [:C4, SIXTEENTH], [:C4, SIXTEENTH], [:F3, EIGHTH]])
-  sleep WHOLE
-end
-
-def section_four_part_one
-  section_four_common_beginning
-  play_thread([[:B4, :A5, :A5, QUARTER, SIXTEENTH], [:A5, :G5, :F5, QUARTER, SIXTEENTH], [:E5, SIXTEENTH], [:C5, EIGHTH], [:A4, SIXTEENTH], [:G4, QUARTER]])
-  play_thread([[:G4, :F5, :F5, QUARTER, SIXTEENTH], [:F5, :E5, :D5, QUARTER, SIXTEENTH], [:C5, SIXTEENTH], [:A4, EIGHTH], [:F4, SIXTEENTH], [:E4, QUARTER]])
-  play_thread([[:D3, syncopate(EIGHTH)], [:F3, SIXTEENTH], [:G3, EIGHTH], [:B3, EIGHTH], [:G3, EIGHTH], [:G3, EIGHTH], [:C4, SIXTEENTH], [:C4, SIXTEENTH], [:G3, EIGHTH]])
-  sleep WHOLE
-end
-
-def section_four_part_two
-  section_four_common_beginning
-  play_thread([[:B4, SIXTEENTH], [:F5, EIGHTH], [:F5, SIXTEENTH], [:F5, :E5, :D5, QUARTER, SIXTEENTH], [:C5, HALF]])
-  play_thread([[:G4, SIXTEENTH], [:D5, EIGHTH], [:D5, SIXTEENTH], [:D5, :C5, :B4, QUARTER, SIXTEENTH], [:G4, SIXTEENTH], [:E4, EIGHTH], [:E4, SIXTEENTH], [:C4, QUARTER]])
-  play_thread([[:G3, SIXTEENTH], [:G3, EIGHTH], [:G3, SIXTEENTH], [:G3, :A3, :B3, QUARTER, SIXTEENTH], [:C4, EIGHTH], [:G3, EIGHTH], [:C3, QUARTER]])
-  sleep WHOLE
-end
-
-def section_four
-  section_four_part_one
-  section_four_part_two
-end
-
-intro
-2.times do section_one end
-2.times do section_two end
-section_three
-2.times do section_one end
-2.times do section_four end
